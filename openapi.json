@@ -43,6 +43,14 @@
          "description": "Cari tahu tentang todo app",
          "url": "https//aplikasi-todo.com"
        }
+     },
+     {
+       "name": "Auth",
+       "description": "Untuk Login Aplikasi",
+       "externalDocs": {
+         "description": "Lebih lanjut tentang Cookie Auth",
+         "url": "https//aplikasi-todo.com"
+       }
      }
    ],
    "paths": {
@@ -50,7 +58,7 @@
        "get": {
          "security": [
            {
-             "todo_api_key": []
+             "todoCookieAuth": []
            }
          ],
          "tags": ["Todo"],
@@ -102,7 +110,7 @@
        "post": {
          "security": [
           {
-            "todo_api_key": []
+            "todoCookieAuth": []
           }
          ],
          "tags": [
@@ -172,7 +180,7 @@
        "put": {
          "security": [
           {
-            "todo_api_key": []
+            "todoCookieAuth": []
           }
          ],
          "tags": ["Todo"],
@@ -243,7 +251,7 @@
        "delete": {
          "security": [
            {
-             "todo_api_key": []
+             "todoCookieAuth": []
            }
          ],
          "tags": ["Todo"],
@@ -303,6 +311,78 @@
            }
          }
        }
+     },
+     "/login": {
+       "post": {
+         "security": [
+            {
+              "todoCookieAuth": []
+            }
+          ],
+          "tags": ["Auth"],
+          "summary": "Login Aplikasi",
+          "description": "Untuk Login Aplikasi dan mendapatkan session",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Login"
+                },
+                "examples": {
+                  "User Zul": {
+                    "description": "Contoh User 1",
+                    "value": {
+                      "email": "isnaen@gmail.com",
+                      "password": "pass123"
+                    }
+                  },
+                  "User Dony": {
+                    "description": "Contoh User 2",
+                    "value": {
+                      "email": "dony@gmail.com",
+                      "password": "pass123"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Login Berhasil",
+              "headers": {
+                "Set-Cookie": {
+                  "schema": {
+                    "type": "string",
+                    "example": "SESSION_TOKEN=abcde12345; Path=/; HttpOnly"
+                  }
+                }
+              },
+              "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/LoginSuccess"
+                 },
+                 "examples": {
+                   "Berhasil": {
+                     "description": "contoh Berhasil Login",
+                     "value": {
+                       "status": "success!"
+                     }
+                   },
+                   "Gagal": {
+                     "description": "contoh Gagal Login",
+                     "value": {
+                       "status": "gagal!"
+                     }
+                   }
+                 }
+               }
+             }
+            }
+          }
+       }
      }
    },
    "components": {
@@ -340,25 +420,36 @@
              "description": "ini deskripsi todo"
            }
          }
-       }
-     },
-     "securitySchemes": {
-       "todo_oauth2": {
-         "type": "oauth2",
-         "flows": {
-           "implicit": {
-             "authorizationUrl": "https://aplikasi-todo.com/oauth/authorize",
-             "scopes": {
-               "write:todo": "modify todo in your account",
-               "read:todo": "read your todo"
-             }
+       },
+       "Login": {
+         "type": "object",
+         "properties": {
+           "email": {
+             "type": "string",
+             "description": "email untuk login"
+           },
+           "password": {
+             "type": "string",
+             "format": "password",
+             "description": "password untuk login"
            }
          }
        },
-       "todo_api_key": {
+       "LoginSuccess": {
+         "type": "object",
+         "properties": {
+           "status": {
+             "type": "string",
+             "description": "Status Login"
+           }
+         }
+       }
+     },
+     "securitySchemes": {
+       "todoCookieAuth": {
          "type": "apiKey",
-         "name": "api_key",
-         "in": "header"
+         "in": "cookie",
+         "name": "SESSION_TOKEN"
        }
      },
      "parameters": {
