@@ -83,23 +83,34 @@
              "content": {
                "application/json": {
                  "schema": {
-                   "$ref": "#/components/schemas/Todo"
+                   "$ref": "#/components/schemas/Response"
                  },
                  "examples": {
                    "success": {
                      "description": "Contoh berhasil mendapatkan semua todo",
-                     "value": [
-                       {
-                         "id": 1,
-                         "name": "Todo 1",
-                         "description": "Todo pertama saya"
-                       },
-                       {
-                         "id": 2,
-                         "name": "Todo 2",
-                         "description": "Todo kedua saya"
+                     "value": {
+                       "success": true,
+                       "message": "success get all record",
+                       "result": [
+                         {
+                           "id": 1,
+                           "name": "Todo 1",
+                           "description": "Todo pertama saya"
+                         },
+                         {
+                           "id": 2,
+                           "name": "Todo 2",
+                           "description": "Todo kedua saya"
+                         }
+                       ],
+                       "error": null,
+                       "meta": {
+                          "count": 1,
+                          "total": 1,
+                          "lastCursor": 4,
+                          "totalPage": 1
                        }
-                     ]
+                     }
                    }
                  }
                }
@@ -132,7 +143,7 @@
                      "name": "zulfikar todo 1",
                      "description": "Ini todo 1 zulfikar"
                    }
-                 },
+                },
                  "todo 2": {
                    "description": "contoh todo 2",
                    "value": {
@@ -150,25 +161,37 @@
              "content": {
                "application/json": {
                  "schema": {
-                   "$ref": "#/components/schemas/Todo"
+                   "$ref": "#/components/schemas/Response"
                  },
                  "examples": {
                    "todo 1": {
-                     "description": "contoh todo 1",
-                     "value": {
-                       "id": "1",
-                       "name": "zulfikar todo 1",
-                       "description": "Ini todo 1 zulfikar"
-                     }
-                   },
-                   "todo 2": {
-                     "description": "contoh todo 2",
-                     "value": {
-                       "id": "2",
-                       "name": "zulfikar todo 2",
-                       "description": "Ini todo 2 zulfikar"
-                     }
-                   }
+                      "description": "contoh todo 1",
+                      "value": {
+                        "success": true,
+                        "message": "Berhasil membuat todo!",
+                        "result": {
+                          "id": "1",
+                          "name": "zulfikar todo 1",
+                          "description": "Ini todo 1 zulfikar"
+                        },
+                        "error": null,
+                        "meta": {}
+                      }
+                    },
+                    "todo 2": {
+                      "description": "contoh todo 2",
+                      "value": {
+                        "success": true,
+                        "message": "Berhasil membuat todo!",
+                        "result": {
+                          "id": "1",
+                          "name": "zulfikar todo 2",
+                          "description": "Ini todo 2 zulfikar"
+                        },
+                        "error": null,
+                        "meta": {}
+                      }
+                    }
                  }
                }
              }
@@ -223,25 +246,37 @@
              "content": {
                "application/json": {
                  "schema": {
-                   "$ref": "#/components/schemas/Todo"
+                   "$ref": "#/components/schemas/Response"
                  },
                  "examples": {
                    "todo 1": {
-                     "description": "contoh todo 1",
-                     "value": {
-                       "id": "1",
-                       "name": "zulfikar todo 1",
-                       "description": "Ini todo 1 zulfikar"
-                     }
-                   },
-                   "todo 2": {
-                     "description": "contoh todo 2",
-                     "value": {
-                       "id": "2",
-                       "name": "zulfikar todo 2",
-                       "description": "Ini todo 2 zulfikar"
-                     }
-                   }
+                      "description": "contoh todo 1",
+                      "value": {
+                        "success": true,
+                        "message": "Berhasil mengubah todo!",
+                        "result": {
+                          "id": "1",
+                          "name": "zulfikar todo 1",
+                          "description": "Ini todo 1 zulfikar"
+                        },
+                        "error": null,
+                        "meta": {}
+                      }
+                    },
+                    "todo 2": {
+                      "description": "contoh todo 2",
+                      "value": {
+                        "success": true,
+                        "message": "Berhasil mengubah todo!",
+                        "result": {
+                          "id": "1",
+                          "name": "zulfikar todo 2",
+                          "description": "Ini todo 2 zulfikar"
+                        },
+                        "error": null,
+                        "meta": {}
+                      }
+                    }
                  }
                }
              }
@@ -268,22 +303,23 @@
              "content": {
                "application/json": {
                  "schema": {
-                   "type": "object",
-                   "properties": {
-                     "success": {
-                       "type": "boolean"
-                     }
-                   }
+                   "$ref": "#/components/schemas/Response"
                  },
                  "example": {
-                   "success": {
-                     "description": "Berhasil menghapus todo",
-                     "value": {
-                       "success": true
-                     }
-                   }
-                 }
-               }
+                    "description": "contoh todo 1",
+                    "value": {
+                      "success": true,
+                      "message": "Berhasil menghapus todo!",
+                      "result": {
+                        "id": "1",
+                        "name": "zulfikar todo 1",
+                        "description": "Ini todo 1 zulfikar"
+                      },
+                      "error": null,
+                      "meta": {}
+                    }
+                  }
+                }
              }
            },
            "404": {
@@ -291,19 +327,22 @@
              "content": {
                "application/json": {
                  "schema": {
-                   "type": "object",
-                   "properties": {
-                     "success": {
-                       "type": "boolean"
-                     }
-                   }
+                   "$ref": "#/components/schemas/Response"
                  },
                  "examples": {
-                   "failed": {
-                     "description": "Gagal menghapus todo",
-                     "value": {
-                     "success": false
-                     }
+                   "Gagal Menghapus": {
+                      "description": "Gagal menghapus todo",
+                      "value": {
+                        "success": true,
+                        "message": "Gagal menghapus todo!",
+                        "result": null,
+                        "error": {
+                          "code": 404,
+                          "message": "Todo tidak ditemukan!",
+                          "params": {}
+                        },
+                        "meta": {}
+                    }
                    }
                  }
                }
@@ -362,19 +401,47 @@
               "content": {
                "application/json": {
                  "schema": {
-                   "$ref": "#/components/schemas/LoginSuccess"
+                   "$ref": "#/components/schemas/Response"
                  },
                  "examples": {
-                   "Berhasil": {
+                   "User A": {
                      "description": "contoh Berhasil Login",
                      "value": {
-                       "status": "success!"
+                        "success": true,
+                        "message": "Login Berhasil!",
+                        "result": {
+                          "id": 24,
+                          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiVTJGc2RHVmtYMThvcEN1cFNTbHlLVHJId3o2RUNoeThKVkhIU21GNlZiOERPVlVCYVh4T0pocWFZdjNwYW1UWTBwMUhhJTJCblN1V2hDbXQwWW5aemk1TDZxR09Jd2hWNE1icjFoWW81YTg5c1c2eFpkWTJwM3hjdzdDOXZOJTJGSHElMkZ4bTZJN1VrUUgzbDhtQiUyRlhzUXdhRkhaU01HMU4yaFglMkZoaWxJSURBSXc4TzFRRDFXeHhCc0MxRm53UVNHVWtjMyUyRlFOZDdOSCUyQkROYzBKM215WXJJJTJGeCUyRjcxaW1TZXpIRVozMVk2RlRuc29Temoyd0Z0MmdDUEJsNjVSR1ZSM2IlMkI4IiwiaWF0IjoxNjc5NTIxNzQ0LCJleHAiOjE2Nzk3ODA5NDQsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDAwMCIsImlzcyI6Inp1bGZpa2FyLWJsb2ciLCJzdWIiOiI2In0.e2lFdKVRWWRIlY2dbOhr0MhwagqmOq0mQ1eRlv9rmJU",
+                          "refresh": "f51784937ad44025ee2704ac936fcf73f9a298ac055a94b8400f3a90a0519e724473b1e8808cdbcf60529dd4299accf8a1c129904dae818dd7221246f60f07c",
+                          "expiredAt": "2023-04-21T21:49:04.358Z"
+                        },
+                        "error": null,
+                        "meta": {}
                      }
-                   },
-                   "Gagal": {
+                   }
+                 }
+               }
+             }
+            },
+            "404": {
+              "description": "Login Failed",
+              "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/Response"
+                 },
+                 "examples": {
+                   "Gagal Login": {
                      "description": "contoh Gagal Login",
                      "value": {
-                       "status": "gagal!"
+                        "success": false,
+                        "message": "Gagal Login!",
+                        "result": null,
+                        "error": {
+                          "code": 404,
+                          "message": "User not found!",
+                          "params": {}
+                        }
                      }
                    }
                  }
@@ -387,6 +454,49 @@
    },
    "components": {
      "schemas": {
+       "Response": {
+         "type": "object",
+         "properties": {
+            "success": {
+              "type": "boolean",
+              "description": "status hasil berhasil atau tidak"
+            },
+            "message": {
+              "type": "string",
+              "description": "Message result"
+            },
+            "result": {
+              "oneOf": [
+                {"type": "array"},
+                {"type": "object", "additionalProperties": true}
+              ],
+              "items": {
+                "oneOf": [
+                    {"$ref": "#/components/schemas/Todo"}
+                ]
+              }
+            },
+            "error": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "params": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            },
+            "meta": {
+              "type": "object",
+              "description": "meta data",
+              "additionalProperties": true
+            }
+         }
+       },
        "Todo": {
          "type": "object",
          "properties": {
@@ -407,10 +517,6 @@
        "CreateOrUpdateTodo": {
          "type": "object",
          "properties": {
-           "id": {
-             "type": "integer",
-             "format": "int64"
-           },
            "name": {
              "type": "string",
              "description": "nama todonya"
@@ -432,15 +538,6 @@
              "type": "string",
              "format": "password",
              "description": "password untuk login"
-           }
-         }
-       },
-       "LoginSuccess": {
-         "type": "object",
-         "properties": {
-           "status": {
-             "type": "string",
-             "description": "Status Login"
            }
          }
        }
