@@ -1,0 +1,387 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Aplikasi Todo",
+    "description": "Ini adalah api sederhana untuk latihan membuat backend",
+     "termsOfService": "https://aplikasi-todo.com/terms/",
+    "contact": {
+      "name": "zulfikar",
+      "email": "isnaen70@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/license/mit/"
+    },
+    "version": "1.0.11"
+   },
+   "externalDocs": {
+     "description": "Cari tahu lebih lanjut mengenai Aplikasi todo",
+     "url": "https://aplikasi-todo.com/about/"
+   },
+  "servers": [
+     {
+       "description": "Todo API Server",
+       "url": "https://{env}.aplikasi-todo.com/api",
+       "variables": {
+         "env": {
+           "description": "Server Environment",
+           "default": "dev",
+           "enum": [
+             "dev",
+             "qa",
+             "prod"
+           ]
+         }
+       }
+     }
+   ],
+   "tags": [
+     {
+       "name": "Todo",
+       "description": "Berkaitan dengan todo",
+       "externalDocs": {
+         "description": "Cari tahu tentang todo app",
+         "url": "https//aplikasi-todo.com"
+       }
+     }
+   ],
+   "paths": {
+     "/todo": {
+       "get": {
+         "security": [
+           {
+             "todo_api_key": []
+           }
+         ],
+         "tags": ["Todo"],
+         "summary": "Ambil semua todo",
+         "description": "Ambil semua todo",
+         "parameters": [
+           {
+             "name": "done",
+             "in": "query",
+             "required": false,
+             "description": "Ambil todo yang sudah selesai",
+             "schema": {
+               "type": "boolean",
+               "nullable": true,
+               "default": false
+             }
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "Berhasil mendapatkan semua todo",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/Todo"
+                 },
+                 "examples": {
+                   "success": {
+                     "description": "Contoh berhasil mendapatkan semua todo",
+                     "value": [
+                       {
+                         "id": 1,
+                         "name": "Todo 1",
+                         "description": "Todo pertama saya"
+                       },
+                       {
+                         "id": 2,
+                         "name": "Todo 2",
+                         "description": "Todo kedua saya"
+                       }
+                     ]
+                   }
+                 }
+               }
+             }
+           }
+         }
+       },
+       "post": {
+         "security": [
+          {
+            "todo_api_key": []
+          }
+         ],
+         "tags": [
+           "Todo"
+         ],
+         "summary": "Membuat todo baru",
+         "description": "Digunakan untuk membuat todo baru",
+         "requestBody": {
+           "required": true,
+           "content": {
+             "application/json": {
+               "schema": {
+                 "$ref": "#/components/schemas/CreateOrUpdateTodo"
+               },
+               "examples": {
+                 "todo 1": {
+                   "description": "contoh todo 1",
+                   "value": {
+                     "name": "zulfikar todo 1",
+                     "description": "Ini todo 1 zulfikar"
+                   }
+                 },
+                 "todo 2": {
+                   "description": "contoh todo 2",
+                   "value": {
+                     "name": "zulfikar todo 2",
+                     "description": "Ini todo 2 zulfikar"
+                   }
+                 }
+               }
+             }
+           }
+         },
+         "responses": {
+           "200": {
+             "description": "Berhasil membuat todo",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/Todo"
+                 },
+                 "examples": {
+                   "todo 1": {
+                     "description": "contoh todo 1",
+                     "value": {
+                       "id": "1",
+                       "name": "zulfikar todo 1",
+                       "description": "Ini todo 1 zulfikar"
+                     }
+                   },
+                   "todo 2": {
+                     "description": "contoh todo 2",
+                     "value": {
+                       "id": "2",
+                       "name": "zulfikar todo 2",
+                       "description": "Ini todo 2 zulfikar"
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       }
+     },
+     "/todo/{id}": {
+       "put": {
+         "security": [
+          {
+            "todo_api_key": []
+          }
+         ],
+         "tags": ["Todo"],
+         "summary": "Mengubah todo yang sudah ada",
+         "description": "Mengubah todo yang sudah ada menggunakan id",
+         "parameters": [
+           {
+             "$ref": "#/components/parameters/TodoId"
+           }
+         ],
+         "requestBody": {
+           "required": true,
+           "content": {
+             "application/json": {
+               "schema": {
+                 "$ref": "#/components/schemas/CreateOrUpdateTodo"
+               },
+               "examples": {
+                 "todo 1": {
+                   "description": "contoh todo 1",
+                   "value": {
+                     "name": "zulfikar todo 1",
+                     "description": "Ini todo 1 zulfikar"
+                   }
+                 },
+                 "todo 2": {
+                   "description": "contoh todo 2",
+                   "value": {
+                     "name": "zulfikar todo 2",
+                     "description": "Ini todo 2 zulfikar"
+                   }
+                 }
+               }
+             }
+           }
+         },
+         "responses": {
+           "200": {
+             "description": "Berhasil mengubah todo",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/Todo"
+                 },
+                 "examples": {
+                   "todo 1": {
+                     "description": "contoh todo 1",
+                     "value": {
+                       "id": "1",
+                       "name": "zulfikar todo 1",
+                       "description": "Ini todo 1 zulfikar"
+                     }
+                   },
+                   "todo 2": {
+                     "description": "contoh todo 2",
+                     "value": {
+                       "id": "2",
+                       "name": "zulfikar todo 2",
+                       "description": "Ini todo 2 zulfikar"
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       },
+       "delete": {
+         "security": [
+           {
+             "todo_api_key": []
+           }
+         ],
+         "tags": ["Todo"],
+         "summary": "Menghapus todo yang sudah ada",
+         "description": "Menghapus todo yang sudah ada menggunakan id",
+         "parameters": [
+           {
+             "$ref": "#/components/parameters/TodoId"
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "Berhasil menghapus todo",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "type": "object",
+                   "properties": {
+                     "success": {
+                       "type": "boolean"
+                     }
+                   }
+                 },
+                 "example": {
+                   "success": {
+                     "description": "Berhasil menghapus todo",
+                     "value": {
+                       "success": true
+                     }
+                   }
+                 }
+               }
+             }
+           },
+           "404": {
+             "description": "Gagal menghapus todo, karena tidak dapat di temukan",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "type": "object",
+                   "properties": {
+                     "success": {
+                       "type": "boolean"
+                     }
+                   }
+                 },
+                 "examples": {
+                   "failed": {
+                     "description": "Gagal menghapus todo",
+                     "value": {
+                     "success": false
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       }
+     }
+   },
+   "components": {
+     "schemas": {
+       "Todo": {
+         "type": "object",
+         "properties": {
+           "id": {
+             "type": "integer",
+             "format": "int64"
+           },
+           "name": {
+             "type": "string",
+             "description": "nama todonya"
+           },
+           "description": {
+             "type": "string",
+             "description": "ini deskripsi todo"
+           }
+         }
+       },
+       "CreateOrUpdateTodo": {
+         "type": "object",
+         "properties": {
+           "id": {
+             "type": "integer",
+             "format": "int64"
+           },
+           "name": {
+             "type": "string",
+             "description": "nama todonya"
+           },
+           "description": {
+             "type": "string",
+             "description": "ini deskripsi todo"
+           }
+         }
+       }
+     },
+     "securitySchemes": {
+       "todo_oauth2": {
+         "type": "oauth2",
+         "flows": {
+           "implicit": {
+             "authorizationUrl": "https://aplikasi-todo.com/oauth/authorize",
+             "scopes": {
+               "write:todo": "modify todo in your account",
+               "read:todo": "read your todo"
+             }
+           }
+         }
+       },
+       "todo_api_key": {
+         "type": "apiKey",
+         "name": "api_key",
+         "in": "header"
+       }
+     },
+     "parameters": {
+       "TodoId": {
+         "name": "id",
+         "in": "path",
+         "required": true,
+         "description": "Todo Id for update or delete",
+         "schema": {
+           "type": "integer",
+           "format": "int64"
+         },
+         "examples": {
+           "todo 1": {
+             "description": "Sample todo id for todo 1",
+             "value": 1
+           },
+           "todo 2": {
+             "description": "Sample todo id for todo 2",
+             "value": 2
+           }
+         }
+       }
+     }
+   }
+ }
