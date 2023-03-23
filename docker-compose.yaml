@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  postgres-todo:
+    container_name: postgres-todo
+    image: postgres:14.3-alpine
+    volumes:
+      - todo_data:/var/lib/postgresql/data
+    ports:
+      - 5450:5432
+    environment:
+      - POSTGRES_USER=zulfikar
+      - POSTGRES_PASSWORD=123
+
+volumes:
+  todo_data:
+
+networks:
+  default:
+    name: todo-networks
+    driver: bridge
