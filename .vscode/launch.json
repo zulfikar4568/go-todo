@@ -1,0 +1,22 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Http",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/cmd/server/main.go",
+      "env": {
+          "POSTGRES_DEFAULT_ID": "postgres_default",
+          "POSTGRES_DEFAULT_URL": "postgres://postgres:toor@localhost:5432/todo_service?sslmode=disable",
+          "POSTGRES_DEFAULT_TEST_URL": "postgres://postgres:toor@localhost:5432/todo_service_test?sslmode=disable"
+      },
+      "args": []
+    }
+  ]
+}

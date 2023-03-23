@@ -1,0 +1,14 @@
+service:
+  name: todo-service
+
+jwt:
+  secret:
+
+http:
+  port: 3000
+
+databases:
+  - id: POSTGRES_DEFAULT_ID
+    driver: postgres
+    url: POSTGRES_DEFAULT_URL
+    log: true
