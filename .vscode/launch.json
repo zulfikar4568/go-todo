@@ -13,8 +13,8 @@
       "program": "${workspaceFolder}/cmd/server/main.go",
       "env": {
           "POSTGRES_DEFAULT_ID": "postgres_default",
-          "POSTGRES_DEFAULT_URL": "postgres://postgres:toor@localhost:5432/todo_service?sslmode=disable",
-          "POSTGRES_DEFAULT_TEST_URL": "postgres://postgres:toor@localhost:5432/todo_service_test?sslmode=disable"
+          "POSTGRES_DEFAULT_URL": "postgres://zulfikar:123@localhost:5450/todo_service?sslmode=disable",
+          "POSTGRES_DEFAULT_TEST_URL": "postgres://zulfikar:123@localhost:5450/todo_service_test?sslmode=disable"
       },
       "args": []
     }

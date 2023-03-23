@@ -5,6 +5,7 @@ import (
 
 	"github.com/fgrosse/goldi"
 	Config "github.com/zulfikar4568/go-todo/internal/config"
+	"github.com/zulfikar4568/go-todo/internal/driver/postgres"
 	"github.com/zulfikar4568/go-todo/pkg/log"
 )
 
@@ -21,6 +22,7 @@ func NewDependencyFactory(config map[string]interface{}) *goldi.Container {
 		instance = goldi.NewContainer(registry, config)
 
 		instance.RegisterType("app.config", Config.NewImmutableConfig)
+		instance.RegisterType("app.postgres", postgres.NewDriver, "@app.config")
 
 		logger.Info("success build dependencies injection")
 	})

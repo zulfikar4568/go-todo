@@ -164,7 +164,7 @@ linters-settings:
       - name: unnecessary-stmt
         disabled: false
       - name: unused-receiver
-        disabled: false
+        disabled: true
       - name: unreachable-code
         disabled: false
       - name: waitgroup-by-value
