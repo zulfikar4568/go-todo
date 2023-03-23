@@ -12,7 +12,7 @@
       "name": "MIT",
       "url": "https://opensource.org/license/mit/"
     },
-    "version": "1.0.11"
+    "version": "1.0.0"
    },
    "externalDocs": {
      "description": "Cari tahu lebih lanjut mengenai Aplikasi todo",
@@ -54,7 +54,7 @@
      }
    ],
    "paths": {
-     "/todo": {
+     "/api/v1/todo": {
        "get": {
          "security": [
            {
@@ -199,7 +199,7 @@
          }
        }
      },
-     "/todo/{id}": {
+     "/api/v1/todo/{id}": {
        "put": {
          "security": [
           {
@@ -351,7 +351,7 @@
          }
        }
      },
-     "/login": {
+     "/api/v1/auth/login": {
        "post": {
          "security": [
             {
@@ -366,7 +366,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Login"
+                  "$ref": "#/components/schemas/LoginRequest"
                 },
                 "examples": {
                   "User Zul": {
@@ -439,7 +439,7 @@
                         "result": null,
                         "error": {
                           "code": 404,
-                          "message": "User not found!",
+                          "message": "User tidak ditemukan!",
                           "params": {}
                         }
                      }
@@ -451,7 +451,7 @@
           }
        }
      },
-     "/logout": {
+     "/api/v1/auth/logout": {
        "post": {
          "security": [
             {
@@ -496,13 +496,13 @@
                       "description": "contoh gagal logout tanpa token",
                       "value": {
                         "success": false,
-                        "message": "token required!",
+                        "message": "token diperlukan!",
                         "result": null,
                         "error": {
-                          "code": "T403",
-                          "message": "token required!",
+                          "code": 401,
+                          "message": "token diperlukan!",
                           "params": {
-                            "message": "No auth token"
+                            "message": "Tidak ada token!"
                           }
                         },
                         "meta": {}
@@ -591,7 +591,7 @@
            }
          }
        },
-       "Login": {
+       "LoginRequest": {
          "type": "object",
          "properties": {
            "email": {
