@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/jinzhu/configor"
+	"github.com/joho/godotenv"
 )
 
 var (
@@ -33,14 +34,19 @@ func (c *ImmutableConfig) GetServiceName() string {
 
 func NewImmutableConfig() IImmutableConfig {
 	once.Do(func() {
-		path := "configs/config.local.yaml"
+		err := godotenv.Load()
+		if err != nil {
+			panic("Error loading .env file")
+		}
+
+		path := "configs/config.local.yml"
 		stage := os.Getenv("GO_STAGE") // Whether local, staging, or production
 
 		if stage != "" {
 			path = fmt.Sprintf("configs/config.%s.yml", stage)
 		}
 
-		if err := configor.New(&configor.Config{AutoReload: false}).Load(config, path); err != nil {
+		if err := configor.New(&configor.Config{AutoReload: true, Debug: true, Verbose: true}).Load(config, path); err != nil {
 			panic("cannot load configuration!")
 		}
 	})
