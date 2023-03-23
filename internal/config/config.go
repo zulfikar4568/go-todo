@@ -7,11 +7,13 @@ import (
 
 	"github.com/jinzhu/configor"
 	"github.com/joho/godotenv"
+	"github.com/zulfikar4568/go-todo/pkg/log"
 )
 
 var (
 	once   = &sync.Once{}
 	config = &ImmutableConfig{}
+	logger = log.NewAppLogger("[config]")
 )
 
 type (
@@ -79,7 +81,8 @@ func NewImmutableConfig() IImmutableConfig {
 			path = fmt.Sprintf("configs/config.%s.yml", stage)
 		}
 
-		if err := configor.New(&configor.Config{AutoReload: true, Debug: true, Verbose: true}).Load(config, path); err != nil {
+		if err := configor.New(&configor.Config{AutoReload: true, Debug: false, Verbose: false}).Load(config, path); err != nil {
+			logger.Error("error while load configuration!", err)
 			panic("cannot load configuration!")
 		}
 
@@ -98,6 +101,7 @@ func NewImmutableConfig() IImmutableConfig {
 			url := os.Getenv(db.Url)
 
 			if id == "" || url == "" {
+				logger.Error("cannot define config db")
 				panic(fmt.Sprintf("cannot define config db at index[%d]", i))
 			}
 
