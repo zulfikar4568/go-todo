@@ -19,17 +19,50 @@ type (
 		Name string `env:"name"`
 	}
 
+	JwtConfig struct {
+		Secret        string `env:"secret"`
+		SecretDefault string `default:"secret_default"`
+	}
+
+	HttpConfig struct {
+		Port uint16 `env:"port"`
+	}
+
+	DatabaseConfig struct {
+		ID     string `env:"id"`
+		Driver string `env:"driver"`
+		Url    string `env:"url"`
+	}
+
 	ImmutableConfig struct {
-		Service ServiceConfig `env:"service"`
+		Jwt       JwtConfig        `env:"jwt"`
+		Http      HttpConfig       `env:"http"`
+		Databases []DatabaseConfig `env:"databases"`
+		Service   ServiceConfig    `env:"service"`
 	}
 
 	IImmutableConfig interface {
 		GetServiceName() string
+		GetServiceHttpPort() uint16
+		GetDatabaseConfig() []DatabaseConfig
+		GetJwtSecret() string
 	}
 )
 
 func (c *ImmutableConfig) GetServiceName() string {
 	return c.Service.Name
+}
+
+func (c *ImmutableConfig) GetServiceHttpPort() uint16 {
+	return c.Http.Port
+}
+
+func (c *ImmutableConfig) GetDatabaseConfig() []DatabaseConfig {
+	return c.Databases
+}
+
+func (c *ImmutableConfig) GetJwtSecret() string {
+	return c.Jwt.Secret
 }
 
 func NewImmutableConfig() IImmutableConfig {
@@ -48,6 +81,28 @@ func NewImmutableConfig() IImmutableConfig {
 
 		if err := configor.New(&configor.Config{AutoReload: true, Debug: true, Verbose: true}).Load(config, path); err != nil {
 			panic("cannot load configuration!")
+		}
+
+		// Config Secret of JWT
+		jwtSecret := os.Getenv(config.Jwt.Secret)
+
+		if jwtSecret == "" {
+			config.Jwt.Secret = config.Jwt.SecretDefault
+		} else {
+			config.Jwt.Secret = jwtSecret
+		}
+
+		// Config Database
+		for i, db := range config.Databases {
+			id := os.Getenv(db.ID)
+			url := os.Getenv(db.Url)
+
+			if id == "" || url == "" {
+				panic(fmt.Sprintf("cannot define config db at index[%d]", i))
+			}
+
+			config.Databases[i].ID = id
+			config.Databases[i].Url = url
 		}
 	})
 

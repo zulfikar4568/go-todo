@@ -23,6 +23,11 @@ func (f *appFactory) Load() {
 	config := dependencies.MustGet("app.config").(Config.IImmutableConfig)
 
 	fmt.Println(config.GetServiceName() + " Loaded!")
+	for _, db := range config.GetDatabaseConfig() {
+		database := fmt.Sprintf("ID %s, Driver %s, Url %s", db.ID, db.Driver, db.Url)
+		fmt.Println(database)
+	}
+	fmt.Println(config.GetJwtSecret() + " JWT Loaded!")
 }
 
 func NewFactory() IFactory {

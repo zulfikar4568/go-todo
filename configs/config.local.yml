@@ -2,7 +2,7 @@ service:
   name: todo-service
 
 jwt:
-  secret:
+  secret: JWT_SECRET
 
 http:
   port: 3000
