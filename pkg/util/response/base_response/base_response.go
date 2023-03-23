@@ -1,4 +1,4 @@
-package base_response
+package baseresponse
 
 type (
 	BaseResponse struct {

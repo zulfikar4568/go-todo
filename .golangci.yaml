@@ -121,7 +121,7 @@ linters-settings:
         disabled: true
       - name: argument-limit
         disabled: false
-        arguments: [4]
+        arguments: [5]
       - name: atomic
         disabled: false
       - name: blank-imports
@@ -196,7 +196,6 @@ linters-settings:
   depguard:
     list-type: denylist
     packages:
-      - github.com/sirupsen/logrus
       - github.com/stretchr/testify
     packages-with-error-messages:
       # specify an error message to output when a blacklisted package is used

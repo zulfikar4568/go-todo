@@ -1,6 +1,6 @@
-package success_response
+package successresponse
 
-import "github.com/zulfikar4568/go-todo/pkg/util/response/base_response"
+import baseresponse "github.com/zulfikar4568/go-todo/pkg/util/response/base_response"
 
 type (
 	ListMeta struct {
@@ -11,8 +11,8 @@ type (
 	}
 )
 
-func NewSuccessResponse[M any | ListMeta](message string, result any, meta M) *base_response.BaseResponse {
-	return &base_response.BaseResponse{
+func NewSuccessResponse[M any | ListMeta](message string, result any, meta M) *baseresponse.BaseResponse {
+	return &baseresponse.BaseResponse{
 		Success: true,
 		Message: message,
 		Result:  result,

@@ -1,7 +1,7 @@
-package error_response
+package errorresponse
 
 import (
-	"github.com/zulfikar4568/go-todo/pkg/util/response/base_response"
+	baseresponse "github.com/zulfikar4568/go-todo/pkg/util/response/base_response"
 )
 
 type (
@@ -12,8 +12,8 @@ type (
 	}
 )
 
-func NewErrorResponse(message string, errorVal ErrorData) *base_response.BaseResponse {
-	return &base_response.BaseResponse{
+func NewErrorResponse(message string, errorVal ErrorData) *baseresponse.BaseResponse {
+	return &baseresponse.BaseResponse{
 		Success: false,
 		Message: message,
 		Result:  map[string]string{},

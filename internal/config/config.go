@@ -26,26 +26,26 @@ type (
 		SecretDefault string `default:"secret_default"`
 	}
 
-	HttpConfig struct {
+	HTTPConfig struct {
 		Port uint16 `env:"port"`
 	}
 
 	DatabaseConfig struct {
 		ID     string `env:"id"`
 		Driver string `env:"driver"`
-		Url    string `env:"url"`
+		URL    string `env:"url"`
 	}
 
 	ImmutableConfig struct {
 		Jwt       JwtConfig        `env:"jwt"`
-		Http      HttpConfig       `env:"http"`
+		HTTP      HTTPConfig       `env:"http"`
 		Databases []DatabaseConfig `env:"databases"`
 		Service   ServiceConfig    `env:"service"`
 	}
 
 	IImmutableConfig interface {
 		GetServiceName() string
-		GetServiceHttpPort() uint16
+		GetServiceHTTPPort() uint16
 		GetDatabaseConfig() []DatabaseConfig
 		GetJwtSecret() string
 	}
@@ -55,8 +55,8 @@ func (c *ImmutableConfig) GetServiceName() string {
 	return c.Service.Name
 }
 
-func (c *ImmutableConfig) GetServiceHttpPort() uint16 {
-	return c.Http.Port
+func (c *ImmutableConfig) GetServiceHTTPPort() uint16 {
+	return c.HTTP.Port
 }
 
 func (c *ImmutableConfig) GetDatabaseConfig() []DatabaseConfig {
@@ -98,7 +98,7 @@ func NewImmutableConfig() IImmutableConfig {
 		// Config Database
 		for i, db := range config.Databases {
 			id := os.Getenv(db.ID)
-			url := os.Getenv(db.Url)
+			url := os.Getenv(db.URL)
 
 			if id == "" || url == "" {
 				logger.Error("cannot define config db")
@@ -106,7 +106,7 @@ func NewImmutableConfig() IImmutableConfig {
 			}
 
 			config.Databases[i].ID = id
-			config.Databases[i].Url = url
+			config.Databases[i].URL = url
 		}
 	})
 

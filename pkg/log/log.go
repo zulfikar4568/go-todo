@@ -41,7 +41,6 @@ func (l *appLogger) Info(args ...any) {
 // Infof is a logrus log message at level info with formatted string logger
 func (l *appLogger) Infof(format string, args ...any) {
 	l.formatLog().Infof(format, args...)
-
 }
 
 // Warn is a logrus log message at warn info on the standard logger
