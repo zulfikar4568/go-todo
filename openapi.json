@@ -450,6 +450,70 @@
             }
           }
        }
+     },
+     "/logout": {
+       "post": {
+         "security": [
+            {
+              "todoCookieAuth": []
+            }
+          ],
+          "tags": ["Auth"],
+          "summary": "Logout Aplikasi",
+          "description": "Digunakan untuk logout aplikasi",
+          "responses": {
+            "200": {
+              "description": "Logout berhasil!",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Response"
+                  },
+                  "examples": {
+                    "berhasil logout": {
+                      "description": "contoh berhasil logout",
+                      "value": {
+                        "success": true,
+                        "message": "Logout berhasil!",
+                        "result": null,
+                        "error": null,
+                        "meta": {}
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Logout gagal!",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Response"
+                  },
+                  "examples": {
+                    "gagal logout": {
+                      "description": "contoh gagal logout tanpa token",
+                      "value": {
+                        "success": false,
+                        "message": "token required!",
+                        "result": null,
+                        "error": {
+                          "code": "T403",
+                          "message": "token required!",
+                          "params": {
+                            "message": "No auth token"
+                          }
+                        },
+                        "meta": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+       }
      }
    },
    "components": {
